@@ -8,13 +8,15 @@ void main() async {
   runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
-    if (kDebugMode) print('>> API_URL = ${Environment.apiUrl}');
+    if (kDebugMode) print('>> Run = ${Environment.apiUrl}');
+
+    final appRouter = ref.watch(goRouterProvider);
 
     return MaterialApp.router(
       routerConfig: appRouter,

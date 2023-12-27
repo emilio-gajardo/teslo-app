@@ -35,6 +35,12 @@ final goRouterProvider = Provider((ref) {
         path: '/',
         builder: (context, state) => const ProductsScreen(),
       ),
+
+      ///* Product
+      GoRoute(
+        path: '/product/:id',
+        builder: (context, state) => ProductScreen(productId: state.params['id'] ?? 'no-id',),
+      ),
     ],
 
     /// Protección de rutas

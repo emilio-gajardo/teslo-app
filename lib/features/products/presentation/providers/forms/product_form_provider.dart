@@ -93,6 +93,12 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
     );
   }
 
+  void updateProductImage (String path) {
+    state = state.copyWith(
+      images: [...state.images, path]
+    );
+  }
+
   /// - Inputs con reglas de validación para cuando cambie el [slug]
   void onSlugChanged(String value) {
     state = state.copyWith(

@@ -21,6 +21,33 @@ class ProductsDatasourceImpl extends ProductsDatasource {
     )
   );
 
+  /// Subir imagen
+  Future<String> _uploadFile(String path) async {
+    try {
+      final fileName = path.split('/').last;//nombre del archivo con la extension
+      final FormData data = FormData.fromMap({
+        'file': MultipartFile.fromFileSync(path, filename: fileName)
+      });
+      final response = await dio.post('/files/product', data: data);
+      return response.data['image'];
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+
+  Future<List<String>> _uploadPhotos(List<String> photos) async {
+    // Si las fotos tienen un "/" en el nombre, indica que bienen del FileSystem
+    final photosToUpload = photos.where((element) => element.contains('/')).toList();
+    final photosToIgnore = photos.where((element) => !element.contains('/')).toList();
+
+    //! todo: crear una serie de Futures de carga de imagenes
+    final List<Future<String>> uploadJob = photosToUpload.map((e) => _uploadFile(e)).toList();
+
+    final newImages = await Future.wait(uploadJob);
+    return [...photosToIgnore, ...newImages];
+  }
+
 
   @override
   Future <Product> createUpdateProduct(Map<String, dynamic> productLike) async {
@@ -29,7 +56,9 @@ class ProductsDatasourceImpl extends ProductsDatasource {
       final String? productId = productLike['id'];
       final String method = (productId == null) ? 'POST' : 'PATCH';
       final String url = (productId == null) ? '/products' : '/products/$productId';
+      
       productLike.remove('id');
+      productLike['images'] = await _uploadPhotos(productLike['images']);
 
       final response = await dio.request(
         url,

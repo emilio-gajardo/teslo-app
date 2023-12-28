@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_shop/features/auth/domain/domain.dart';
 import 'package:teslo_shop/features/auth/infrastructure/infrastructure.dart';
@@ -36,11 +35,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       _setLoggedUser(user);
     }
     on CustomError catch (e) {
-       if (kDebugMode) print('>> [auth_provider] CustomError (e): ${e.message}');
+      //  if (kDebugMode) print('>> [auth_provider] CustomError (e): ${e.message}');
        logout(e.message);
      }
      catch (e) {
-      if (kDebugMode) print('>>> [auth_provider] catch (e): $e');
+      // if (kDebugMode) print('>>> [auth_provider] catch (e): $e');
       logout('>>> Error: no controlado');
     }
     //state = state.copyWith(authStatus: AuthStatus.authenticated, user: user);

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_shop/config/config.dart';
@@ -14,7 +14,7 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    if (kDebugMode) print('>> Run = ${Environment.apiUrl}');
+    // if (kDebugMode) print('>> Run Backend api_url = ${Environment.apiUrl}');
 
     final appRouter = ref.watch(goRouterProvider);
 

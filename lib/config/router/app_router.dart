@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:teslo_shop/config/router/app_router_notifier.dart';
@@ -47,10 +46,10 @@ final goRouterProvider = Provider((ref) {
     /// Bloqueo o permiso por autenticacion
     redirect: (context, state) {
 
-      if (kDebugMode) print('>> state.subloc: ${state.subloc}');
+      // if (kDebugMode) print('>> state.subloc: ${state.subloc}');
       final isGoinTo = state.subloc;
       final authStatus = goRouterNotifier.authStatus;
-      if (kDebugMode) print('>> GoRouter = [authStatus: $authStatus], [isGoinTo: $isGoinTo]');
+      // if (kDebugMode) print('>> GoRouter = [authStatus: $authStatus], [isGoinTo: $isGoinTo]');
 
 
       if (isGoinTo == '/splash' && authStatus == AuthStatus.checking) {
